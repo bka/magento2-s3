@@ -11,6 +11,7 @@
                 <item name="s3StorageDisableCommand" xsi:type="object">Thai\S3\Console\Command\StorageDisableCommand</item>
                 <item name="s3StorageEnableCommand" xsi:type="object">Thai\S3\Console\Command\StorageEnableCommand</item>
                 <item name="s3StorageExportCommand" xsi:type="object">Thai\S3\Console\Command\StorageExportCommand</item>
+                <item name="s3StorageSyncCommand" xsi:type="object">Thai\S3\Console\Command\StorageSyncCommand</item>
             </argument>
         </arguments>
     </type>

@@ -9,6 +9,10 @@ class Plugin
             'value' => \Thai\S3\Model\MediaStorage\File\Storage::STORAGE_MEDIA_S3,
             'label' => __('Amazon S3')
         ];
+        $result[] = [
+            'value' => \Thai\S3\Model\MediaStorage\File\Storage::STORAGE_MEDIA_AZURE,
+            'label' => __('Azure Blob Storage')
+        ];
         return $result;
     }
 }

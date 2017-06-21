@@ -26,6 +26,7 @@ class File extends \Magento\MediaStorage\Model\ResourceModel\File\Storage\File
      */
     public function saveFile($filePath, $content, $overwrite = false)
     {
+        $this->log("save file " . $filePath);
         $result = parent::saveFile($filePath, $content, $overwrite);
         if ($result) {
             $this->fileStorageDb->saveFile($filePath);

@@ -8,7 +8,7 @@ require([
 
     allowedStorages = [],
     getConnectionName = function (storageType, connection) {
-        if (storageType == 0 || storageType == 2) {
+        if (storageType == 0 || storageType == 2 || storageType == 4) {
             return storageType;
         } else if (connection != '') {
             return storageType + '_' + connection;
@@ -154,11 +154,11 @@ require([
         disableSyncButton();
     });
 
-    jQuery.validator.addMethod('required-synchronize', function(){
-        storage = getConnectionName(
-            $('system_media_storage_configuration_media_storage').value,
-            $('system_media_storage_configuration_media_database').value
-        );
-        return allowedStorages.include(storage);
-    }, 'Synchronization is required.');
+    /* jQuery.validator.addMethod('required-synchronize', function(){ */
+    /*     storage = getConnectionName( */
+    /*         $('system_media_storage_configuration_media_storage').value, */
+    /*         $('system_media_storage_configuration_media_database').value */
+    /*     ); */
+    /*     return allowedStorages.include(storage); */
+    /* }, 'Synchronization is required.'); */
 });</script><?php echo $block->getButtonHtml() ?> <span class="sync-indicator no-display" id="sync_span"><img alt="Synchronize" style="margin:0 5px" src="<?php /* @escapeNotVerified */ echo $block->getViewFileUrl('images/process_spinner.gif') ?>"/><span id="sync_message_span"></span></span> <input type="hidden" id="synchronize-validation-input" class="required-synchronize no-display"/>

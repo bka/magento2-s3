@@ -9,10 +9,10 @@ class Plugin
 
     public function __construct(
         \Thai\S3\Helper\Data $helper,
-        \Thai\S3\Model\MediaStorage\File\Storage\S3 $storageModel
+        \Magento\MediaStorage\Model\File\Storage $storage
     ) {
         $this->helper = $helper;
-        $this->storageModel = $storageModel;
+        $this->storageModel = $storage->getStorageModel();
     }
 
     public function aroundCreateRecursive($subject, $proceed, $path)
@@ -27,17 +27,15 @@ class Plugin
     {
         if ($this->helper->checkS3Usage()) {
             return $this->storageModel->getSubdirectories($directory);
-        } else {
-            return $proceed($directory);
         }
+        return $proceed($directory);
     }
 
     public function aroundDeleteDirectory($subject, $proceed, $path)
     {
         if ($this->helper->checkS3Usage()) {
             return $this->storageModel->deleteDirectory($path);
-        } else {
-            return $proceed($path);
         }
+        return $proceed($path);
     }
 }

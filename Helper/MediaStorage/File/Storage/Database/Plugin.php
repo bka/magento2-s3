@@ -8,6 +8,7 @@ class Plugin
     private $helper;
 
     private $s3StorageFactory;
+    private $azureStorageFactory;
 
     private $dbStorageFactory;
 
@@ -16,10 +17,12 @@ class Plugin
     public function __construct(
         \Thai\S3\Helper\Data $helper,
         \Thai\S3\Model\MediaStorage\File\Storage\S3Factory $s3StorageFactory,
+        \Thai\S3\Model\MediaStorage\File\Storage\AzureFactory $azureStorageFactory,
         \Magento\MediaStorage\Model\File\Storage\DatabaseFactory $dbStorageFactory
     ) {
         $this->helper = $helper;
         $this->s3StorageFactory = $s3StorageFactory;
+        $this->azureStorageFactory = $azureStorageFactory;
         $this->dbStorageFactory = $dbStorageFactory;
     }
 
@@ -43,7 +46,9 @@ class Plugin
     {
         if (is_null($this->storageModel)) {
             if ($subject->checkDbUsage() && $this->helper->checkS3Usage()) {
-                $this->storageModel = $this->s3StorageFactory->create();
+                // TODO
+                /* $this->storageModel = $this->s3StorageFactory->create(); */
+                $this->storageModel = $this->azureStorageFactory->create();
             } else {
                 $this->storageModel = $this->dbStorageFactory->create();
             }

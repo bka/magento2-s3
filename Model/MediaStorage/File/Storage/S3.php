@@ -4,7 +4,7 @@ namespace Thai\S3\Model\MediaStorage\File\Storage;
 use Aws\S3\Exception\S3Exception;
 use Magento\Framework\DataObject;
 
-class S3 extends DataObject
+class S3 extends DataObject implements StorageInterface
 {
     /**
      * Store media base directory path
@@ -84,6 +84,27 @@ class S3 extends DataObject
     public function getStorageName()
     {
         return __('Amazon S3');
+    }
+
+    /**
+     * credentialsValid
+     * @return bool
+     */
+    public function credentialsValid()
+    {
+        try {
+            $this->client = new \Aws\S3\S3Client([
+                'version' => 'latest',
+                'region' => $this->helper->getRegion(),
+                'credentials' => [
+                    'key' => $this->helper->getAccessKey(),
+                    'secret' => $this->helper->getSecretKey()
+                ]
+            ]);
+        } catch (\Exception $e) {
+        }
+
+        return $this->client->doesBucketExist($this->helper->getBucket());
     }
 
     /**
@@ -225,6 +246,7 @@ class S3 extends DataObject
                 'Key' => $filename
             ]);
         } catch (\Exception $e) {
+            // TODO
         }
 
         return $this;
@@ -358,7 +380,7 @@ class S3 extends DataObject
         return $this;
     }
 
-    protected function getBucket()
+    public function getBucket()
     {
         return $this->helper->getBucket();
     }

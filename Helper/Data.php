@@ -16,7 +16,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     {
         if (is_null($this->useS3)) {
             $currentStorage = (int)$this->scopeConfig->getValue(Storage::XML_PATH_STORAGE_MEDIA);
-            $this->useS3 = $currentStorage == Storage::STORAGE_MEDIA_S3;
+            $this->useS3 = $currentStorage == Storage::STORAGE_MEDIA_S3 || $currentStorage == Storage::STORAGE_MEDIA_AZURE;
         }
         return $this->useS3;
     }
@@ -39,5 +39,20 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     public function getBucket()
     {
         return $this->scopeConfig->getValue('thai_s3/general/bucket');
+    }
+
+    public function getAzureAccount()
+    {
+        return $this->scopeConfig->getValue('thai_s3/general/azure_account');
+    }
+
+    public function getAzureKey()
+    {
+        return $this->scopeConfig->getValue('thai_s3/general/azure_account_key');
+    }
+
+    public function getAzureRegistry()
+    {
+        return $this->scopeConfig->getValue('thai_s3/general/azure_registry');
     }
 }

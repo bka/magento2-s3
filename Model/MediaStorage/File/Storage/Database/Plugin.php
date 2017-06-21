@@ -9,10 +9,10 @@ class Plugin
 
     public function __construct(
         \Thai\S3\Helper\Data $helper,
-        \Thai\S3\Model\MediaStorage\File\Storage\S3 $storageModel
+        \Magento\MediaStorage\Model\File\Storage $storage
     ) {
         $this->helper = $helper;
-        $this->storageModel = $storageModel;
+        $this->storageModel = $storage->getStorageModel();
     }
 
     public function aroundGetDirectoryFiles($subject, $proceed, $directory)
